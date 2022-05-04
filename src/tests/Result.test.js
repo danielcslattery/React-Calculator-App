@@ -57,8 +57,39 @@ test('test long equation with two sets of parentheses and operations not in PEMD
     expect(result).toEqual(20.8)
 })
 
+test('test long equation with one set of parentheses not at the start and operations not in PEMDAS order', () => {
+    const component = new Result();
+    const result = component.processEntries('3+10*(9-1)/5')
+    expect(result).toEqual(19)
+})
+
 test('Allow negative results after simple subtraction', () => {
     const component = new Result();
     const result = component.processEntries('2-4')
     expect(result).toEqual(-2)
 })
+
+test('Allow negative results after simple multiplication', () => {
+    const component = new Result();
+    const result = component.processEntries('2*(2-4)')
+    expect(result).toEqual(-4)
+})
+
+test('Multiply two negative numbers', () => {
+    const component = new Result();
+    const result = component.processEntries('(9-11)*2*(2-4)')
+    expect(result).toEqual(8)
+})
+
+test('Distribute negative before parentheses', () => {
+    const component = new Result();
+    const result = component.processEntries('-(9+2)')
+    expect(result).toEqual(-11)
+})
+
+test('Distribute preceding number before parentheses', () => {
+    const component = new Result();
+    const result = component.processEntries('10(9+2)')
+    expect(result).toEqual(110)
+})
+
