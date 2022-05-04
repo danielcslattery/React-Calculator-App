@@ -1,9 +1,10 @@
-import {Result} from '../components/Result.js'
+import { Result } from '../components/Result.js'
 
-// const Result = require('../components/Result')
+// const Result = require('../components/Result.js')
+const component = new Result();
 
 test('test purely addition', () => {
-    const component = new Result();
+
     const result = component.processEntries('2+2')
     expect(result).toEqual(4)
 })
@@ -54,4 +55,10 @@ test('test long equation with two sets of parentheses and operations not in PEMD
     const component = new Result();
     const result = component.processEntries('(3+10)*(9-1)/5')
     expect(result).toEqual(20.8)
+})
+
+test('Allow negative results after simple subtraction', () => {
+    const component = new Result();
+    const result = component.processEntries('2-4')
+    expect(result).toEqual(-2)
 })
