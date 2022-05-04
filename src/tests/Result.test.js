@@ -93,3 +93,21 @@ test('Distribute preceding number before parentheses', () => {
     expect(result).toEqual(110)
 })
 
+test('Distribute preceding number before parentheses', () => {
+    const component = new Result();
+    const result = component.processEntries('10(9+2)')
+    expect(result).toEqual(110)
+})
+
+test('Single set of parentheses resolve', () => {
+    const component = new Result();
+    const result = component.processEntries('(9+2)')
+    expect(result).toEqual(11)
+})
+
+test('Multiple sets of parentheses resolve', () => {
+    const component = new Result();
+    const result = component.processEntries('((9+2)+3)')
+    expect(result).toEqual(14)
+})
+

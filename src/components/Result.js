@@ -15,8 +15,8 @@ export class Result extends React.Component{
     };
 
     processParens(entries) {
-        while (entries.match(/\(([^)]+)\)/g)) {
-            const inParens = entries.match(/\(([^)]+)\)/g)
+        while (entries.match(/\([^()]+\)/g)) {
+            const inParens = entries.match(/\([^()]+\)/g)
             const innerParens = inParens[0].replace(/[()]/g, '')
             const parensResult = this.processParens(innerParens);
             const parensPosition = entries.indexOf(inParens[0])
@@ -60,14 +60,16 @@ export class Result extends React.Component{
 
     processAdditionSubtraction(equation) {
         let i = 1;
+        console.log(equation)
         while(equation.length > 1 && i < equation.length){
             if(equation[i] === '+'){
+                console.log(equation[i-1], "plus", equation[i+1], " equals ", equation[i-1] + equation[i+1])
                 equation.splice(i-1, 3, equation[i-1] + equation[i+1])
             } else if (equation[i] === '-') {
                 console.log(equation[i-1], "minus", equation[i+1], " equals ", equation[i-1] - equation[i+1])
                 equation.splice(i-1, 3, equation[i-1] - equation[i+1])
             } else if (equation[i] < 0){
-                console.log(equation[i-1], "minus", equation[i+1], " equals ", equation[i-1] + equation[i])
+                console.log(equation[i-1], "minus2", equation[i], " equals ", equation[i-1] + equation[i])
                 equation.splice(i-1, 3, equation[i-1] + equation[i])
             } else {
                 i++;

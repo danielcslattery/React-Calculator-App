@@ -19,6 +19,7 @@ class Calculator extends React.Component {
     }
 
     handleInput(event) {
+
         this.setState(() => {
             return {entriesString: event.target.value}
         });
@@ -75,7 +76,9 @@ function CalculatorButton(props) {
 }
 
 function Screen(props) {
-    const entriesString = props.entriesString;
+    let entriesString = props.entriesString;
+    entriesString = entriesString.replace(/([+/*])[+/*]/g, '$1')
+    entriesString = entriesString.replace(/([-])\1{2}/g, '--')
 
     return (
         <input value = {entriesString} onChange={props.onChange}/>
