@@ -60,7 +60,6 @@ export class Result extends React.Component{
 
     processAdditionSubtraction(equation) {
         let i = 1;
-        console.log(equation)
         while(equation.length > 1 && i < equation.length){
             if(equation[i] === '+'){
                 console.log(equation[i-1], "plus", equation[i+1], " equals ", equation[i-1] + equation[i+1])

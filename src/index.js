@@ -8,13 +8,27 @@ class Calculator extends React.Component {
         super(props);
         this.state = {
             entriesString: "",
+            memories: ['2+2','4-9'],
         };
     }
 
-    buttonClick(val) {
+    mathButtonClick(val) {
         // Passing a function instead of object to setState so that the Screen element calls the updated version
         this.setState((state) => {
             return {entriesString: state.entriesString + val};
+        })
+    }
+
+    memoryClick(memory){
+        this.setState(() => {
+            console.log(memory)
+            return {entriesString: memory};
+        })
+    }
+
+    saveMemoryClick(currentInput){
+        this.setState((state) => {
+            return {memories: state.memories.concat(currentInput) };
         })
     }
 
@@ -27,10 +41,10 @@ class Calculator extends React.Component {
 
     renderButton(val) {
         return (
-            <CalculatorButton
+            <MathButton
                 value={val}
-                //buttonClick() needs to be passed anonymously or else it will trigger when CalculatorButton is rendered
-                onClick={() => this.buttonClick(val)}
+                //mathButtonClick() needs to be passed anonymously or else it will trigger when MathButton is rendered
+                onClick={() => this.mathButtonClick(val)}
             />
         );
     }
@@ -52,27 +66,55 @@ class Calculator extends React.Component {
         )
     }
 
+    renderMemory(memory) {
+        return(
+            <Memory
+                memory = {memory}
+                onClick = {() => this.memoryClick(memory)}
+            />
+        )
+    }
+
     render() {
-        const entries = this.state.entriesString;
+        const entriesString = this.state.entriesString;
+        const memories = this.state.memories;
 
         return (
         <div className = "calculator">
-            {this.renderScreen(entries)}
+            {this.renderScreen(entriesString)}
             {[...Array(10).keys()].map((num) => this.renderButton(num))}
             {['+','-','*','/'].map((operator) => this.renderButton(operator))}
-            {this.renderResult(entries)}
+            {this.renderResult(entriesString)}
+            {memories.map((mem) => this.renderMemory(mem))}
+            {<SaveMemory onClick={() => this.saveMemoryClick(entriesString)}/>}
         </div>)
     }
 
 
 }
 
-function CalculatorButton(props) {
+function MathButton(props) {
     return (
         <button className="button" onClick={props.onClick}>
             {props.value}
         </button>
     );
+}
+
+function Memory(props) {
+    return (
+        <button onClick={props.onClick}>
+            {props.memory}
+        </button>
+    )
+}
+
+function SaveMemory(props) {
+    return (
+        <button onClick={props.onClick}>
+            Save Equation
+        </button>
+    )
 }
 
 function Screen(props) {
