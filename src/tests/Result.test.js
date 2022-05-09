@@ -1,6 +1,5 @@
-import { Result } from '../components/Result.js'
+import Result from '../components/Result.js'
 
-// const Result = require('../components/Result.js')
 const component = new Result();
 
 test('test purely addition', () => {
@@ -109,5 +108,11 @@ test('Multiple sets of parentheses resolve', () => {
     const component = new Result();
     const result = component.processEntries('((9+2)+3)')
     expect(result).toEqual(14)
+})
+
+test('If decimals work properly', () => {
+    const component = new Result();
+    const result = component.processEntries('(9.1 + 2.9) * 5.4 - 10.1(7.7 / 32.5)')
+    expect(result).toEqual(62.407076923076936)
 })
 

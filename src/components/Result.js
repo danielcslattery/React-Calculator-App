@@ -1,6 +1,6 @@
 import React from 'react';
 
-export class Result extends React.Component{
+export default class Result extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -37,8 +37,7 @@ export class Result extends React.Component{
 
     doMath(entries) {
         let equation = entries.replace(/\s/g, '')
-
-        equation = equation.match(/-?[0-9]+|[+\-*/]/g).map(el => isNaN(el) ? el : Number(el))
+        equation = equation.match(/-?\d+\.?\d*|[+\-*/]/g).map(el => isNaN(el) ? el : Number(el))
         equation = this.processMultiplicationDivision(equation)
         equation = this.processAdditionSubtraction(equation)
         return equation;
@@ -80,7 +79,7 @@ export class Result extends React.Component{
 
     render(){
         return (
-            <h2>
+            <h2 data-testid = 'result'>
                 {this.processEntries(this.props.entriesString)}
             </h2>
         )
