@@ -1,4 +1,3 @@
-
 function mathButtonClick(val) {
     // Passing a function instead of object to setState so that the Screen element calls the updated version
     this.setState((state) => {

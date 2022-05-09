@@ -1,17 +1,22 @@
-import Result from '../Result.js';
+import Result from '../Result/Result.js';
 import Screen from '../Screen.js';
 import MathButton from '../MathButton.js';
 import {Memory, SaveMemory} from '../Memory.js'
-import {mathButtonClick, memoryClick, saveMemoryClick, handleInput} from './CalculatorEventLogic.js'
 import React from 'react';
+
+import * as CalculatorHelper from './CalculatorHelper.js';
 
 export default class Calculator extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             entriesString: "",
-            memories: ['2+2','4-9'],
+            memories: ['2+2','5-9'],
         };
+        this.mathButtonClick = CalculatorHelper.mathButtonClick.bind(this);
+        this.memoryClick = CalculatorHelper.memoryClick.bind(this);
+        this.saveMemoryClick = CalculatorHelper.saveMemoryClick.bind(this);
+        this.handleInput = CalculatorHelper.handleInput.bind(this);
     }
 
     renderButton(val) {
@@ -19,7 +24,7 @@ export default class Calculator extends React.Component {
             <MathButton
                 value={val}
                 //mathButtonClick() needs to be passed anonymously or else it will trigger when MathButton is rendered
-                onClick={() => mathButtonClick(val)}
+                onClick={() => this.mathButtonClick(val)}
             />
         );
     }
@@ -29,7 +34,7 @@ export default class Calculator extends React.Component {
             <Screen
                 data-testid = "screen"
                 entriesString = {entriesString}
-                onChange = {(e) => handleInput(e)}
+                onChange = {(e) => this.handleInput(e)}
             />
         )   
     }
@@ -47,7 +52,7 @@ export default class Calculator extends React.Component {
         return(
             <Memory
                 memory = {memory}
-                onClick = {() => memoryClick(memory)}
+                onClick = {() => this.memoryClick(memory)}
             />
         )
     }
@@ -63,7 +68,7 @@ export default class Calculator extends React.Component {
             {['+','-','*','/'].map((operator) => this.renderButton(operator))}
             {this.renderResult(entriesString)}
             {memories.map((mem) => this.renderMemory(mem))}
-            {<SaveMemory onClick={() => saveMemoryClick(entriesString)}/>}
+            {<SaveMemory onClick={() => this.saveMemoryClick(entriesString)}/>}
         </div>)
     }
 }
