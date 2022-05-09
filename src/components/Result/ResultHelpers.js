@@ -2,13 +2,14 @@
 
 function processEntries(entries) {
     if (entries.length > 0){
-        const equation = processParens(entries);
+        const equation = processParens(entries.replace(/\s+/g, ''));
         return equation ? equation[0] : 0;
     }
 };
 
 function processParens(entries) {
     while (entries.match(/\([^()]+\)/g)) {
+
         const inParens = entries.match(/\([^()]+\)/g)
         const innerParens = inParens[0].replace(/[()]/g, '')
         const parensResult = processParens(innerParens);
@@ -20,6 +21,8 @@ function processParens(entries) {
         } else {
             entries = entries.replace(inParens[0], parensResult);
         }
+
+        console.log(entries)
     } 
 
     if(!entries.match(/[()]/g)){

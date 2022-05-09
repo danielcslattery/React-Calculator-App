@@ -14,7 +14,7 @@ function memoryClick(memory){
 
 function saveMemoryClick(currentInput){
     this.setState((state) => {
-        return {memories: state.memories.concat(currentInput) };
+        return {memories: state.memories.concat(currentInput.replace(/\s+/g, '')) };
     })
 }
 

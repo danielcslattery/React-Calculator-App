@@ -1,0 +1,7 @@
+.memorybutton {
+    background-color: rgb(215, 215, 215);
+}
+
+.selectedmemory {
+    background-color: red   
+}

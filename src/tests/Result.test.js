@@ -96,3 +96,7 @@ test('If decimals work properly', () => {
     expect(result).toEqual(62.407076923076936)
 })
 
+test('Paranetheses with negative in front', () => {
+    const result = processEntries('(9 + 2) - (10 * 90)')
+    expect(result).toEqual(-889)
+})

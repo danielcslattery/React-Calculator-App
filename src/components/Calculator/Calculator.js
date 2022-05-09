@@ -48,10 +48,11 @@ export default class Calculator extends React.Component {
         )
     }
 
-    renderMemory(memory) {
+    renderMemory(memory, entriesString) {
         return(
             <Memory
                 memory = {memory}
+                entriesString = {entriesString}
                 onClick = {() => this.memoryClick(memory)}
             />
         )
@@ -67,8 +68,8 @@ export default class Calculator extends React.Component {
             {[...Array(10).keys()].map((num) => this.renderButton(num))}
             {['+','-','*','/'].map((operator) => this.renderButton(operator))}
             {this.renderResult(entriesString)}
-            {memories.map((mem) => this.renderMemory(mem))}
-            {<SaveMemory onClick={() => this.saveMemoryClick(entriesString)}/>}
+            {memories.map((mem) => this.renderMemory(mem, entriesString))}
+            {<SaveMemory entriesString = {this.state.entriesString} memories = {memories} onClick={() => this.saveMemoryClick(entriesString)}/>}
         </div>)
     }
 }
