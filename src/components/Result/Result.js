@@ -3,9 +3,11 @@ import { processEntries } from './ResultHelpers';
 
 
 export default function Result(props) {
+    const result = processEntries(props.entriesString)
+
     return (
         <h2 data-testid = 'result'>
-            {processEntries(props.entriesString)}
+            {result}
         </h2>
     )
 }
